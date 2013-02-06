@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using LINQDataContext;
 
-namespace ConsoleApplication1
+namespace ExosLINQ
 {
     class Program
     {
@@ -192,15 +192,66 @@ namespace ConsoleApplication1
             //}
             #endregion
             #region Exo 4.2
-            var qResult = LinqDataContext.Students.Where(s => s.Section_ID >= 1000 && s.Section_ID < 1100).GroupBy(s => s.Section_ID);
+            //var qResult = LinqDataContext.Students.Where(s => s.Section_ID >= 1000 && s.Section_ID < 1100).GroupBy(s => s.Section_ID);
 
-            foreach (var section in qResult)
-            {
-                Console.WriteLine(string.Format("Moyenne pour la section {0} : {1}", section.Key, Math.Round(section.Select(s => s.Year_Result).Average(), 2)));
-            }
+            //foreach (var section in qResult)
+            //{
+            //    Console.WriteLine(string.Format("Moyenne pour la section {0} : {1}", section.Key, Math.Round(section.Select(s => s.Year_Result).Average(), 2)));
+            //}
             #endregion
             #region Exo 4.3
+            //var qResult = LinqDataContext.Students
+            //    .Where(s => s.BirthDate.Year >= 1970 && s.BirthDate.Year <= 1985)
+            //    .GroupBy(s => s.BirthDate.MonthName_FR());
 
+            //foreach (var students in qResult)
+            //    Console.WriteLine(string.Format("{0} : {1}", Math.Round(students.Select(s => s.Year_Result).Average(), 2), students.Key));
+            #endregion
+            #region Exo 4.4
+            //var qResult = LinqDataContext.Students.GroupBy(s => s.Section_ID)
+            //                                      .Where(g => g.Count() > 3)
+            //                                      .Select(g => Math.Round(g.Average(s => s.Year_Result), 2));
+
+
+            //foreach (double avg in qResult)
+            //    Console.WriteLine(avg);
+
+            //// Ou encore mieux...
+
+            //var qResultAlt = LinqDataContext.Students.GroupBy(s => s.Section_ID).Where(g => g.Count() > 3);
+
+            //foreach (var section in qResultAlt)
+            //    Console.WriteLine(string.Format("{0} : {1}", section.Key, Math.Round(section.Select(s => s.Year_Result).Average(), 2)));
+            #endregion
+            #region Exo 4.5
+            //var qResult = LinqDataContext.Courses
+            //    .Join(LinqDataContext.Professors,
+            //        c => c.Professor_ID,
+            //        p => p.Professor_ID,
+            //        (c, p) => new
+            //        {
+            //            cours = c.Course_Name,
+            //            prof = p.Professor_Name,
+            //            section = p.Section_ID
+            //        });
+
+            //foreach (var cp in qResult)
+            //    Console.WriteLine(string.Format("{0} | {1} | {2}", cp.cours, cp.prof, cp.section));
+            #endregion
+            #region Exo 4.6
+            //var qResult = LinqDataContext.Sections
+            //    .Join(LinqDataContext.Students,
+            //    scn => scn.Delegate_ID,
+            //    std => std.Student_ID,
+            //    (scn, std) => new
+            //    {
+            //        secId = scn.Section_ID,
+            //        secName = scn.Section_Name,
+            //        delName = std.First_Name + " " + std.Last_Name
+            //    }).OrderByDescending(scn => scn.secId);
+
+            //foreach (var sd in qResult)
+            //    Console.WriteLine(string.Format("{0} | {1} | {2}", sd.secId, sd.secName, sd.delName));
             #endregion
             #endregion
 
