@@ -346,11 +346,16 @@ namespace ExosLINQ
             #region Exo 4.10
             var qResult = from s in LinqDataContext.Sections
                           from p in LinqDataContext.Professors
-                          join c in LinqDataContext.Courses on p.Professor_ID equals c.Professor_ID into cp
-                          select new { nom = p.Professor_Name, section = s.Section_Name, cours = from c in cp
-                                                                                                 select new { cNom = c.Course_Name, cEcts = c.Course_Ects }
-                          };
+                          join c in LinqDataContext.Courses on p.Professor_ID equals c.Professor_ID into gcp
+                          from cp in gcp.DefaultIfEmpty()
+                          select new { prof = p.Professor_Name, section = s.Section_Name, cours = (cp == null) ? null : cp.Course_Name, creds = (cp == null) ? null : (float?)cp.Course_Ects };
 
+            var qFinalResult = from row in qResult
+                               orderby row.creds descending
+                               select new { row.prof, row.section, row.cours, row.creds };
+
+            foreach (var psc in qFinalResult)
+                Console.WriteLine("{0} | {1} | {2} |{3}", psc.prof, psc.section, psc.cours, psc.creds);
             #endregion
 
             #endregion
